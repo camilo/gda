@@ -3,7 +3,11 @@ require 'mkmf'
 # :stopdoc:
 
 if RUBY_PLATFORM =~ /darwin/
-  ENV['PKG_CONFIG_PATH'] ||= '/opt/boxen/homebrew/lib/pkgconfig:/opt/boxen/homebrew/Library/ENV/pkgconfig/10.8'
+  ENV['PKG_CONFIG_PATH'] ||= if ENV['BOXEN_HOME']
+                               '/opt/boxen/homebrew/lib/pkgconfig:/opt/boxen/homebrew/Library/ENV/pkgconfig/10.8'
+                             else
+                               '/usr/local/opt/libxml2/lib/pkgconfig:/usr/local/lib/pkgconfig'
+                             end
 end
 
 dir_config 'libgda'
